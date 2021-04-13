@@ -1,0 +1,3 @@
+training_mode/conventional_training/train.sh
+test_protocol/test_lfw.sh
+test_protocol/data_conf.yaml

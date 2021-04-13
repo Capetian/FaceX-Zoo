@@ -17,6 +17,7 @@ from backbone.AttentionNets import ResidualAttentionNet
 from backbone.TF_NAS import TF_NAS_A
 from backbone.resnest.resnest import ResNeSt
 from backbone.ReXNets import ReXNetV1
+from backbone.seesaw_shuffleFaceNet import seesaw_shuffleFaceNet
 
 class BackboneFactory:
     """Factory to produce backbone according the backbone_conf.yaml.
@@ -117,6 +118,11 @@ class BackboneFactory:
             dropout_ratio = self.backbone_param['dropout_ratio']
             backbone = ReXNetV1(input_ch, final_ch, width_mult, depth_mult, use_se, se_ratio,
                                 out_h, out_w, feat_dim, dropout_ratio)
+        elif self.backbone_type == 'seesaw_ShuffleFaceNet':
+            feat_dim = self.backbone_param['feat_dim'] # dimension of the output features, e.g. 512.
+            out_h = self.backbone_param['out_h'] # height of the feature map before the final features.
+            out_w = self.backbone_param['out_w'] # width of the feature map before the final features.
+            backbone =  seesaw_shuffleFaceNet(feat_dim, out_h, out_w)
         else:
             pass
         return backbone
